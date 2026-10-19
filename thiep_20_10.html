@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gửi Nắng Ấm Ngày 20/10 💖</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Family -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            overflow-x: hidden;
+        }
+        
+        .font-handwriting {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Background Animated Canvas */
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Custom Envelope Styles & Animation */
+        .envelope-wrapper {
+            perspective: 1000px;
+        }
+
+        .envelope {
+            width: 320px;
+            height: 220px;
+            position: relative;
+            background-color: #f472b6;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            box-shadow: 0 15px 35px rgba(236, 72, 153, 0.25);
+            cursor: pointer;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .envelope:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(236, 72, 153, 0.35);
+        }
+
+        .envelope::before {
+            /* Front bottom fold */
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid #f43f5e;
+            border-right: 160px solid #f43f5e;
+            border-top: 110px solid transparent;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            z-index: 3;
+            opacity: 0.95;
+        }
+
+        .envelope-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 120px solid #fb7185;
+            transform-origin: top;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.1s;
+            z-index: 4;
+        }
+
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        /* Letter Inside Envelope */
+        .letter-preview {
+            position: absolute;
+            bottom: 10px;
+            left: 5%;
+            width: 90%;
+            height: 80%;
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.8s ease 0.3s, opacity 0.5s ease 0.3s;
+            z-index: 2;
+        }
+
+        .envelope.open .letter-preview {
+            transform: translateY(-120px);
+            opacity: 0;
+        }
+
+        /* Glowing lights */
+        .glow-bg {
+            background: radial-gradient(circle, rgba(251,207,232,0.6) 0%, rgba(255,255,255,0) 70%);
+        }
+
+        /* Custom Scrollbar for Long Letter */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #fbcfe8;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #f43f5e;
+            border-radius: 10px;
+        }
+
+        /* Page Transition Animations */
+        .page {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .page.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Heart Pulse */
+        @keyframes pulse-slow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+        .animate-pulse-slow {
+            animation: pulse-slow 2.5s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-pink-100 via-rose-50 to-purple-100 flex items-center justify-center relative p-4 text-gray-800 select-none">
+
+    <!-- Background Particle Canvas (Petals & Hearts) -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Glowing Background Lights Effect -->
+    <div class="fixed inset-0 glow-bg pointer-events-none z-0"></div>
+
+    <!-- MAIN CONTAINER -->
+    <main class="relative z-10 w-full max-w-2xl min-h-[580px] flex items-center justify-center">
+
+        <!-- ================= PAGE 1: ENVELOPE COVER ================= -->
+        <section id="page1" class="page active flex-col items-center justify-center text-center w-full">
+            <div class="mb-8">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-pink-200/60 text-pink-700 text-xs font-semibold tracking-widest uppercase mb-3 backdrop-blur-sm border border-pink-300/50">
+                    20 - 10 Special Edition 🌸
+                </span>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-pink-600 tracking-tight drop-shadow-sm">
+                    Gửi Tặng Người Dễ Thương
+                </h1>
+                <p class="text-sm md:text-base text-gray-600 mt-2">Chạm nhẹ vào phong bì bên dưới để mở món quà bí mật nhé!</p>
+            </div>
+
+            <!-- Envelope Component -->
+            <div class="envelope-wrapper my-6">
+                <div id="envelope" class="envelope flex items-center justify-center" onclick="openEnvelope()">
+                    <!-- Flap -->
+                    <div class="envelope-flap"></div>
+                    
+                    <!-- Seal Heart -->
+                    <div id="envelopeSeal" class="absolute z-10 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md border-2 border-rose-300 text-rose-500 transition-all duration-300">
+                        <i class="fa-solid font-bold fa-heart text-xl animate-pulse"></i>
+                    </div>
+
+                    <!-- Letter Peek Inside -->
+                    <div class="letter-preview flex flex-col items-center justify-center text-center">
+                        <p class="font-handwriting text-rose-500 text-lg font-bold">Happy Vietnamese Women's Day</p>
+                        <p class="text-xs text-gray-400 mt-1">Gửi trọn tình cảm...</p>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-xs text-pink-500/80 italic mt-6 flex items-center gap-1">
+                <i class="fa-solid fa-sparkles"></i> Nhấp vào lá thư để khám phá lời chúc
+            </p>
+        </section>
+
+
+        <!-- ================= PAGE 2: MAIN LETTER PAGE ================= -->
+        <section id="page2" class="page flex-col items-center justify-center w-full">
+            <div class="bg-white/85 backdrop-blur-md rounded-3xl p-6 md:p-10 shadow-2xl border border-pink-200/60 w-full max-w-xl relative overflow-hidden transition-all">
+                
+                <!-- Decorative Corner Flowers -->
+                <div class="absolute -top-6 -right-6 text-pink-200/50 text-8xl pointer-events-none">
+                    <i class="fa-solid fa-spa"></i>
+                </div>
+                <div class="absolute -bottom-6 -left-6 text-rose-200/50 text-8xl pointer-events-none">
+                    <i class="fa-solid fa-flower"></i>
+                </div>
+
+                <!-- Header -->
+                <div class="text-center border-b border-pink-100 pb-4 mb-4">
+                    <span class="text-pink-500 font-handwriting text-2xl font-bold">Thư gửi ngày Phụ nữ Việt Nam 20/10</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold text-gray-800 mt-1">Lời Chúc Tới Phái Đẹp ✨</h2>
+                </div>
+
+                <!-- Letter Content (Scrollable if needed) -->
+                <div class="max-h-[320px] overflow-y-auto custom-scrollbar pr-2 text-gray-700 leading-relaxed text-sm md:text-base space-y-4 text-justify">
+                    <p>
+                        <span class="text-rose-500 font-bold text-lg font-handwriting">Chào bạn, người phụ nữ tuyệt vời! 💖</span>
+                    </p>
+                    <p>
+                        Nhân ngày Phụ nữ Việt Nam 20/10, mình xin gửi tới bạn những lời chúc ấm áp, chân thành và trọn vẹn nhất từ đáy lòng. Cảm ơn bạn vì đã luôn xuất hiện với nụ cười rạng rỡ, sự bao dung và nguồn năng lượng dịu dàng nhưng đầy sức mạnh.
+                    </p>
+                    <p>
+                        Chúc bạn mỗi ngày trôi qua đều là một ngày tràn ngập niềm vui, sự bình yên trong tâm hồn và sự nâng niu từ những người xung quanh. Dù cuộc sống có đôi lúc bận rộn hay đối mặt với những thử thách, mong bạn vẫn luôn giữ vững sự tự tin, tỏa sáng theo cách riêng của chính mình.
+                    </p>
+                    <p>
+                        Hãy luôn yêu thương bản thân, được tự do theo đuổi những ước mơ và luôn là bông hoa đẹp nhất, rạng rỡ nhất trong khu vườn cuộc đời mình nhé. Mong mọi may mắn và hạnh phúc nhất thế giới này sẽ luôn mỉm cười với bạn! 🌸🌿
+                    </p>
+                </div>
+
+                <!-- Footer Action -->
+                <div class="mt-6 pt-4 border-t border-pink-100 flex justify-end">
+                    <button onclick="goToPage(3)" class="px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold rounded-full shadow-lg hover:shadow-pink-500/30 transition-all duration-300 flex items-center gap-2 group">
+                        <span>Tiếp tục</span>
+                        <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PAGE 3: FAREWELL PAGE ================= -->
+        <section id="page3" class="page flex-col items-center justify-center text-center w-full">
+            <div class="bg-white/80 backdrop-blur-md rounded-3xl p-8 md:p-12 shadow-2xl border border-pink-200/60 w-full max-w-md flex flex-col items-center relative overflow-hidden">
+                
+                <!-- Glowing Heart Icon -->
+                <div class="w-24 h-24 bg-rose-100/80 rounded-full flex items-center justify-center mb-6 text-rose-500 shadow-inner border border-rose-200 animate-pulse-slow">
+                    <i class="fa-solid fa-heart text-5xl"></i>
+                </div>
+
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-800 tracking-tight mb-3">
+                    Tạm Biệt nhé! 💕
+                </h2>
+
+                <p class="text-gray-600 text-sm md:text-base leading-relaxed mb-8">
+                    Cảm ơn vì đã dành thời gian ghé qua góc nhỏ này. Mong rằng món quà tinh thần này đã mang lại cho bạn một nụ cười ấm áp trong ngày hôm nay!
+                </p>
+
+                <!-- Replay / Back Button -->
+                <button onclick="goToPage(1)" class="px-7 py-3 bg-white text-rose-500 border-2 border-rose-300 hover:bg-rose-50 font-bold rounded-full shadow-md hover:shadow-lg transition-all duration-300 flex items-center gap-2">
+                    <i class="fa-solid fa-rotate-left"></i>
+                    <span>Xem lại từ đầu</span>
+                </button>
+                
+                <p class="text-xs text-gray-400 mt-6 font-light">
+                    Chúc bạn có một ngày 20/10 vô cùng trọn vẹn! 🎉
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JS Logic & Effects -->
+    <script>
+        /* --- PAGE NAVIGATION LOGIC --- */
+        let currentPage = 1;
+
+        function goToPage(pageNumber) {
+            const currentEl = document.getElementById(`page${currentPage}`);
+            const nextEl = document.getElementById(`page${pageNumber}`);
+
+            if (currentEl && nextEl) {
+                // Fade out current page
+                currentEl.style.opacity = '0';
+                currentEl.style.transform = 'translateY(-20px)';
+
+                setTimeout(() => {
+                    currentEl.classList.remove('active');
+                    currentEl.style.transform = ''; // reset transform
+
+                    // Fade in next page
+                    nextEl.classList.add('active');
+                    currentPage = pageNumber;
+
+                    // If reset to page 1, reset envelope status
+                    if (pageNumber === 1) {
+                        resetEnvelope();
+                    }
+                    
+                    // Trigger extra sparkles on farewell page
+                    if (pageNumber === 3) {
+                        burstHearts();
+                    }
+                }, 400);
+            }
+        }
+
+        /* --- ENVELOPE INTERACTION --- */
+        let isOpening = false;
+        function openEnvelope() {
+            if (isOpening) return;
+            isOpening = true;
+
+            const envelope = document.getElementById('envelope');
+            envelope.classList.add('open');
+
+            // Burst particle effect on click
+            burstHearts();
+
+            // Transition to Page 2 after animation ends
+            setTimeout(() => {
+                goToPage(2);
+                isOpening = false;
+            }, 1200);
+        }
+
+        function resetEnvelope() {
+            const envelope = document.getElementById('envelope');
+            envelope.classList.remove('open');
+        }
+
+
+        /* --- PARTICLE CANVAS ANIMATION (Petals & Hearts Falling) --- */
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * -height;
+                this.size = Math.random() * 12 + 8;
+                this.speedY = Math.random() * 1.2 + 0.8;
+                this.speedX = Math.random() * 0.8 - 0.4;
+                this.rotation = Math.random() * 360;
+                this.rotationSpeed = Math.random() * 2 - 1;
+                this.opacity = Math.random() * 0.5 + 0.5;
+                // Randomize between Heart (0) and Rose Petal (1)
+                this.type = Math.random() > 0.4 ? 'petal' : 'heart';
+                this.color = Math.random() > 0.5 ? '#f43f5e' : '#fb7185';
+            }
+
+            update() {
+                this.y += this.speedY;
+                this.x += Math.sin(this.y * 0.01) + this.speedX;
+                this.rotation += this.rotationSpeed;
+
+                if (this.y > height + 20) {
+                    this.reset();
+                    this.y = -10;
+                }
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                ctx.rotate((this.rotation * Math.PI) / 180);
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = this.color;
+
+                if (this.type === 'petal') {
+                    // Draw Rose Petal shape
+                    ctx.beginPath();
+                    ctx.moveTo(0, 0);
+                    ctx.bezierCurveTo(-this.size, -this.size / 2, -this.size, this.size, 0, this.size);
+                    ctx.bezierCurveTo(this.size, this.size, this.size, -this.size / 2, 0, 0);
+                    ctx.fill();
+                } else {
+                    // Draw Simple Heart shape
+                    ctx.beginPath();
+                    const topCurveHeight = this.size * 0.3;
+                    ctx.moveTo(0, topCurveHeight);
+                    ctx.bezierCurveTo(0, 0, -this.size / 2, 0, -this.size / 2, topCurveHeight);
+                    ctx.bezierCurveTo(-this.size / 2, (this.size + topCurveHeight) / 2, 0, this.size, 0, this.size);
+                    ctx.bezierCurveTo(0, this.size, this.size / 2, (this.size + topCurveHeight) / 2, this.size / 2, topCurveHeight);
+                    ctx.bezierCurveTo(this.size / 2, 0, 0, 0, 0, topCurveHeight);
+                    ctx.fill();
+                }
+
+                ctx.restore();
+            }
+        }
+
+        // Generate Particles
+        const particles = Array.from({ length: 35 }, () => new Particle());
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        /* --- BURST EFFECT ON SPECIAL ACTIONS --- */
+        function burstHearts() {
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const p = new Particle();
+                    p.x = width / 2 + (Math.random() * 200 - 100);
+                    p.y = height / 2 + (Math.random() * 200 - 100);
+                    p.speedY = Math.random() * -2 - 1;
+                    particles.push(p);
+                    // Remove extra particle after a few seconds
+                    setTimeout(() => particles.shift(), 4000);
+                }, i * 30);
+            }
+        }
+
+        // Start animation loop on page load
+        window.onload = function() {
+            animateParticles();
+        };
+    </script>
+</body>
+</html>
